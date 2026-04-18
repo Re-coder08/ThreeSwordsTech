@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - develop
   pull_request:
     branches:
       - develop
@@ -20,15 +21,28 @@ jobs:
           fi
           html5validator --root . index.html
 
-  deploy:
+  deploy-production:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: validate
     steps:
       - uses: actions/checkout@v4
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages (Production)
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
           cname: threeswords.tech
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    needs: validate
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to GitHub Pages (Staging)
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          cname: staging.threeswords.tech

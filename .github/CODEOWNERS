@@ -1,0 +1,10 @@
+# Global owner
+* @Re-coder08
+
+# GitHub specific files
+.github/ @Re-coder08
+
+# Documentation
+*.md @Re-coder08
+CONTRIBUTING.md @Re-coder08
+CLAUDE.md @Re-coder08
