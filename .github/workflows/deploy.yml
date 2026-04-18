@@ -35,7 +35,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
-          cname: threeswords.tech
 
   deploy-staging:
     runs-on: ubuntu-latest
@@ -48,4 +47,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
-          cname: staging.threeswords.tech
