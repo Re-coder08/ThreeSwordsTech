@@ -12,6 +12,17 @@ python -m http.server 8000
 npx http-server
 ```
 
+## Git Flow Deployment
+
+This project uses **Git Flow** for branch management and releases:
+- **`main`** — Production releases only (protected, requires PR review)
+- **`develop`** — Integration branch (protected, requires PR review)
+- **Feature branches** — Branch off `develop` as `feature/description`
+- **Release branches** — `release/vX.X.X` merge to both `main` and `develop`
+- **Hotfix branches** — `hotfix/description` for emergency production fixes
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed workflow guidelines.
+
 ## Architecture
 
 Everything lives in a single file: `index.html`. CSS is in `<style>` tags, JavaScript is in `<script>` tags at the bottom. There are no external stylesheets, scripts, or dependencies beyond Google Fonts loaded via CDN.
