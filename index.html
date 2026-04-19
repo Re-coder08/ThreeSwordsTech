@@ -66,6 +66,21 @@ h1 .line3{-webkit-text-stroke:1px rgba(192,200,216,0.4);color:transparent}
 .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--accent),transparent);animation:scrollAnim 2s infinite}
 @keyframes scrollAnim{0%{opacity:0;transform:scaleY(0);transform-origin:top}50%{opacity:1}100%{opacity:0;transform:scaleY(1);transform-origin:top}}
 
+/* ORBITAL VORTEX ACCENT */
+.swords-animation{position:absolute;right:5%;top:50%;transform:translateY(-50%);width:200px;height:200px;display:flex;align-items:center;justify-content:center}
+.vortex-core{position:absolute;width:80px;height:80px;border:2px solid rgba(0,170,255,0.3);border-radius:50%;animation:coreSpin 14s linear infinite;pointer-events:none}
+.vortex-core::after{content:'';position:absolute;inset:15px;border:1px solid rgba(0,170,255,0.15);border-radius:50%;animation:coreCounter 14s linear infinite reverse}
+.vortex-core.lg{width:150px;height:150px}
+.vortex-core.lg::after{inset:28px}
+.vortex-core.md{width:110px;height:110px}
+.vortex-core.md::after{inset:20px}
+.vortex-core.sm{width:50px;height:50px;border-width:1.5px}
+.vortex-core.sm::after{inset:10px;border-width:1px}
+.vortex-core.xs{width:30px;height:30px;border-width:1px;border-color:rgba(0,170,255,0.2)}
+.vortex-core.xs::after{inset:6px;border-width:0.5px;border-color:rgba(0,170,255,0.1)}
+@keyframes coreSpin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes coreCounter{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+
 /* SECTION COMMON */
 section{padding:100px 5%}
 .section-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:16px}
@@ -164,6 +179,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
 @media(max-width:900px){
   .swords-grid,.services-grid,.stats-inner,.why-grid,.footer-inner{grid-template-columns:1fr}
   .hero-stats{display:none}
+  .swords-animation{display:none}
   .services-header{flex-direction:column;align-items:flex-start}
 }
 </style>
@@ -191,6 +207,14 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
   <div class="hero-slash"></div>
+  <div class="vortex-core lg" style="top:10%;left:15%;opacity:0.75"></div>
+  <div class="vortex-core sm" style="top:35%;left:8%;opacity:0.7"></div>
+  <div class="vortex-core xs" style="bottom:25%;left:20%;opacity:0.72"></div>
+  <div class="vortex-core md" style="top:50%;right:20%;opacity:0.78"></div>
+  <div class="vortex-core sm" style="bottom:15%;right:12%;opacity:0.74"></div>
+  <div class="swords-animation">
+    <div class="vortex-core lg" style="top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.8"></div>
+  </div>
   <div class="hero-content">
     <div class="hero-badge fade-up"><span class="badge-dot"></span> Engineering Excellence</div>
     <h1 class="fade-up fade-up-d1">
@@ -228,8 +252,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
 <section class="swords-section" id="about">
   <div class="section-label fade-up">Our Philosophy</div>
   <div class="slash-divider fade-up"></div>
-  <h2 class="section-title fade-up">Inspired by the <br>three-sword style</h2>
-  <p class="section-sub fade-up fade-up-d1">Like Zoro's legendary fighting style, we wield three disciplines in perfect harmony — delivering engineering solutions that are powerful, precise, and masterfully executed.</p>
+  <h2 class="section-title fade-up">Three core disciplines<br>in perfect harmony</h2>
+  <p class="section-sub fade-up fade-up-d1">We master three complementary disciplines — delivering engineering solutions that are powerful, precise, and masterfully executed across every domain.</p>
   <div class="swords-grid">
     <div class="sword-card fade-up">
       <div class="sword-num">01 / FIRST SWORD</div>
@@ -254,6 +278,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
 
 <!-- SERVICES -->
 <section class="services-section" id="services">
+  <div class="vortex-core md" style="position:absolute;top:5%;right:20%;opacity:0.72"></div>
+  <div class="vortex-core lg" style="position:absolute;bottom:8%;left:15%;opacity:0.76"></div>
+  <div class="vortex-core sm" style="position:absolute;top:30%;left:10%;opacity:0.7"></div>
+  <div class="vortex-core xs" style="position:absolute;bottom:25%;right:18%;opacity:0.73"></div>
   <div class="services-header">
     <div>
       <div class="section-label fade-up">What We Build</div>
@@ -326,6 +354,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
 
 <!-- WHY US -->
 <section class="why-section">
+  <div class="vortex-core lg" style="position:absolute;top:8%;right:15%;opacity:0.74"></div>
+  <div class="vortex-core md" style="position:absolute;top:40%;left:12%;opacity:0.75"></div>
+  <div class="vortex-core sm" style="position:absolute;bottom:15%;right:20%;opacity:0.72"></div>
+  <div class="vortex-core xs" style="position:absolute;top:20%;right:8%;opacity:0.7"></div>
   <div class="section-label fade-up">Why Three Swords</div>
   <div class="slash-divider fade-up"></div>
   <div class="why-grid">
@@ -371,6 +403,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
 
 <!-- CTA BANNER -->
 <section class="cta-section" id="contact">
+  <div class="vortex-core md" style="position:absolute;top:15%;left:20%;opacity:0.75"></div>
+  <div class="vortex-core sm" style="position:absolute;bottom:10%;right:15%;opacity:0.73"></div>
+  <div class="vortex-core lg" style="position:absolute;top:35%;right:10%;opacity:0.77"></div>
+  <div class="vortex-core xs" style="position:absolute;bottom:20%;left:18%;opacity:0.71"></div>
   <div class="section-label fade-up">Start a Project</div>
   <h2 class="fade-up fade-up-d1">Ready to build<br>something great?</h2>
   <p class="fade-up fade-up-d2">Tell us what you're building. We'll tell you how to make it extraordinary.</p>
@@ -442,6 +478,42 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 window.addEventListener('load', () => {
   document.querySelectorAll('.hero .fade-up').forEach(el => el.classList.add('visible'));
+});
+
+// Randomize vortex-core positions
+const sizes = {lg: 150, md: 110, sm: 50, xs: 30};
+const getSize = el => {
+  for(let [k,v] of Object.entries(sizes)) if(el.classList.contains(k)) return v;
+  return 80;
+};
+const checkOverlap = (x1, y1, s1, circles) => {
+  for(let {x: x2, y: y2, s: s2} of circles) {
+    const d = Math.sqrt((x1-x2)**2 + (y1-y2)**2);
+    if(d < s1/2 + s2/2 + 40) return true;
+  }
+  return false;
+};
+const randomizeSection = section => {
+  const rect = section.getBoundingClientRect();
+  const w = rect.width, h = rect.height;
+  const cores = [...section.querySelectorAll('.vortex-core')];
+  const placed = [];
+  cores.forEach(core => {
+    const s = getSize(core);
+    let x, y, attempts = 0;
+    do {
+      x = Math.random() * (w - 100) + 50;
+      y = Math.random() * (h - 100) + 50;
+      attempts++;
+    } while(checkOverlap(x, y, s, placed) && attempts < 30);
+    placed.push({x, y, s});
+    core.style.left = x + 'px';
+    core.style.top = y + 'px';
+  });
+};
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('section');
+  sections.forEach(randomizeSection);
 });
 </script>
 </body>
