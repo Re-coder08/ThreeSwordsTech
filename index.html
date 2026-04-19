@@ -77,8 +77,14 @@ h1 .line3{-webkit-text-stroke:1px rgba(192,200,216,0.4);color:transparent}
 .slash-line:nth-child(4){animation:slashEffect 7s ease-out infinite}
 .slash-line:nth-child(5){animation:slashEffect 7s ease-out infinite 1.17s}
 .slash-line:nth-child(6){animation:slashEffect 7s ease-out infinite 2.33s}
-.vortex-core{position:absolute;width:80px;height:80px;border:2px solid rgba(0,170,255,0.3);border-radius:50%;animation:coreSpin 7s linear infinite;top:50%;left:50%;transform:translate(-50%,-50%)}
-.vortex-core::after{content:'';position:absolute;inset:15px;border:1px solid rgba(0,170,255,0.15);border-radius:50%;animation:coreCounter 2.5s linear infinite reverse}
+.vortex-core{position:absolute;width:80px;height:80px;border:2px solid rgba(0,170,255,0.3);border-radius:50%;animation:coreSpin 7s linear infinite;pointer-events:none}
+.vortex-core::after{content:'';position:absolute;inset:15px;border:1px solid rgba(0,170,255,0.15);border-radius:50%;animation:coreCounter 7s linear infinite reverse}
+.vortex-core.lg{width:150px;height:150px}
+.vortex-core.lg::after{inset:28px}
+.vortex-core.sm{width:50px;height:50px;border-width:1.5px}
+.vortex-core.sm::after{inset:10px;border-width:1px}
+.vortex-core.xs{width:30px;height:30px;border-width:1px;border-color:rgba(0,170,255,0.2)}
+.vortex-core.xs::after{inset:6px;border-width:0.5px;border-color:rgba(0,170,255,0.1)}
 @keyframes bladeSlash{0%{transform:translateY(-50%) rotate(0deg) scaleX(1)}25%{transform:translateY(-50%) rotate(120deg) scaleX(1)}50%{transform:translateY(-50%) rotate(240deg) scaleX(1)}75%{transform:translateY(-50%) rotate(360deg) scaleX(1.1)}100%{transform:translateY(-50%) rotate(360deg) scaleX(1)}}
 @keyframes slashEffect{0%{opacity:1;transform:translateY(-50%) rotate(0deg);width:2px}30%{opacity:0.8;width:8px}60%{opacity:0.3;transform:translateY(-50%) rotate(60deg);width:4px}100%{opacity:0;transform:translateY(-50%) rotate(120deg);width:1px}}
 @keyframes coreSpin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
@@ -210,6 +216,9 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
   <div class="hero-slash"></div>
+  <div class="vortex-core lg" style="top:15%;left:10%;opacity:0.15"></div>
+  <div class="vortex-core sm" style="bottom:20%;left:8%;opacity:0.12"></div>
+  <div class="vortex-core xs" style="top:40%;right:15%;opacity:0.1"></div>
   <div class="swords-animation">
     <div class="twister-vortex">
       <div class="twister-blade"></div>
@@ -284,6 +293,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
 
 <!-- SERVICES -->
 <section class="services-section" id="services">
+  <div class="vortex-core sm" style="position:absolute;top:10%;right:5%;opacity:0.1"></div>
+  <div class="vortex-core xs" style="position:absolute;bottom:15%;left:3%;opacity:0.08"></div>
   <div class="services-header">
     <div>
       <div class="section-label fade-up">What We Build</div>
@@ -356,6 +367,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
 
 <!-- WHY US -->
 <section class="why-section">
+  <div class="vortex-core lg" style="position:absolute;top:5%;right:8%;opacity:0.12"></div>
+  <div class="vortex-core sm" style="position:absolute;bottom:10%;right:2%;opacity:0.1"></div>
   <div class="section-label fade-up">Why Three Swords</div>
   <div class="slash-divider fade-up"></div>
   <div class="why-grid">
@@ -401,6 +414,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
 
 <!-- CTA BANNER -->
 <section class="cta-section" id="contact">
+  <div class="vortex-core xs" style="position:absolute;top:20%;left:5%;opacity:0.1"></div>
+  <div class="vortex-core sm" style="position:absolute;bottom:15%;right:8%;opacity:0.09"></div>
   <div class="section-label fade-up">Start a Project</div>
   <h2 class="fade-up fade-up-d1">Ready to build<br>something great?</h2>
   <p class="fade-up fade-up-d2">Tell us what you're building. We'll tell you how to make it extraordinary.</p>
