@@ -498,6 +498,42 @@ document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 window.addEventListener('load', () => {
   document.querySelectorAll('.hero .fade-up').forEach(el => el.classList.add('visible'));
 });
+
+// Randomize vortex-core positions
+const sizes = {lg: 150, md: 110, sm: 50, xs: 30};
+const getSize = el => {
+  for(let [k,v] of Object.entries(sizes)) if(el.classList.contains(k)) return v;
+  return 80;
+};
+const checkOverlap = (x1, y1, s1, circles) => {
+  for(let {x: x2, y: y2, s: s2} of circles) {
+    const d = Math.sqrt((x1-x2)**2 + (y1-y2)**2);
+    if(d < s1/2 + s2/2 + 40) return true;
+  }
+  return false;
+};
+const randomizeSection = section => {
+  const rect = section.getBoundingClientRect();
+  const w = rect.width, h = rect.height;
+  const cores = [...section.querySelectorAll('.vortex-core')];
+  const placed = [];
+  cores.forEach(core => {
+    const s = getSize(core);
+    let x, y, attempts = 0;
+    do {
+      x = Math.random() * (w - 100) + 50;
+      y = Math.random() * (h - 100) + 50;
+      attempts++;
+    } while(checkOverlap(x, y, s, placed) && attempts < 30);
+    placed.push({x, y, s});
+    core.style.left = x + 'px';
+    core.style.top = y + 'px';
+  });
+};
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('section');
+  sections.forEach(randomizeSection);
+});
 </script>
 </body>
 </html>
