@@ -38,6 +38,7 @@ nav ul a{text-decoration:none;color:var(--muted);font-size:14px;font-family:'DM 
 nav ul a:hover{color:var(--text)}
 .nav-cta{background:var(--accent);color:#08090D!important;padding:8px 20px;border-radius:4px;font-weight:500!important;transition:opacity 0.2s!important}
 .nav-cta:hover{opacity:0.85}
+.nav-burger{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;padding:8px;z-index:101}
 
 /* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:0 5%}
@@ -118,8 +119,10 @@ section{padding:100px 5%}
 .service-card:hover .service-ico{border-color:var(--accent)}
 .service-name{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;margin-bottom:10px}
 .service-desc{color:var(--muted);font-size:14px;line-height:1.7;font-weight:300}
-.service-arrow{margin-top:20px;color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px;opacity:0;transition:opacity 0.3s;display:flex;align-items:center;gap:6px}
+.service-arrow{margin-top:20px;color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px;opacity:0;transition:opacity 0.3s;display:flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;padding:0}
 .service-card:hover .service-arrow{opacity:1}
+.service-chevron{display:none}
+.service-features-mobile,.service-mobile-cta{display:none}
 
 /* STATS */
 .stats-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
@@ -180,11 +183,52 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
 .fade-up-d5{transition-delay:0.5s}
 .fade-up-d6{transition-delay:0.6s}
 
+/* SERVICE MODAL */
+#service-modal{display:none}
+#service-modal.open{display:flex}
+.modal-overlay{position:fixed;inset:0;background:rgba(8,9,13,0.92);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;z-index:200}
+.modal-box{background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,0 100%);max-width:600px;width:90%;max-height:85vh;overflow-y:auto;padding:48px 40px;position:relative;animation:modalIn 0.35s ease}
+.modal-close{position:absolute;top:20px;right:20px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:24px;transition:color 0.2s}
+.modal-close:hover{color:var(--accent)}
+.modal-icon{font-size:48px;margin-bottom:16px}
+.modal-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:12px;opacity:0.8}
+.modal-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:32px;color:var(--text);margin-bottom:20px;line-height:1.2}
+.modal-desc{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:32px;font-weight:300}
+.modal-features{display:flex;flex-direction:column;gap:16px;margin-bottom:32px}
+.modal-feature{display:flex;gap:12px;align-items:flex-start}
+.modal-feature-check{color:var(--accent);font-weight:700;margin-top:2px;flex-shrink:0}
+.modal-feature-text{color:var(--muted);font-size:14px;line-height:1.6}
+.modal-cta{display:inline-block;margin-top:12px}
+@keyframes modalIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+
 @media(max-width:900px){
+  /* NAV */
+  .nav-burger{display:block}
+  nav ul{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(8,9,13,0.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);flex-direction:column;padding:20px 5%;gap:20px;z-index:99;max-height:calc(100vh - 72px);overflow-y:auto}
+  nav.nav-mobile-open ul{display:flex}
+  nav ul a{padding:8px 0}
+
   .swords-grid,.services-grid,.stats-inner,.why-grid,.footer-inner{grid-template-columns:1fr}
   .hero-stats{display:none}
   .swords-animation{display:none}
   .services-header{flex-direction:column;align-items:flex-start}
+
+  /* Service Card Accordion */
+  .service-card{padding:20px 24px;cursor:pointer}
+  .service-card-header{display:flex;align-items:center;gap:14px;justify-content:space-between}
+  .service-card-header .service-ico{margin-bottom:0;flex-shrink:0}
+  .service-card-header .service-name{flex:1;margin-bottom:0;font-size:16px;font-weight:700}
+  .service-chevron{display:block;color:var(--accent);font-size:22px;transition:transform 0.3s;flex-shrink:0;line-height:1}
+  .service-card.expanded .service-chevron{transform:rotate(90deg)}
+  .service-expand-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+  .service-card.expanded .service-expand-body{max-height:500px}
+  .service-desc{margin-top:16px;font-size:14px}
+  .service-features-mobile{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+  .mobile-feature{display:flex;gap:10px;align-items:flex-start}
+  .mobile-feature-check{color:var(--accent);font-weight:700;flex-shrink:0}
+  .mobile-feature-text{color:var(--muted);font-size:13px;line-height:1.6}
+  .service-mobile-cta{display:inline-block;margin-top:20px;color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-decoration:none;text-transform:uppercase}
+  .service-arrow{display:none}
 }
 </style>
 </head>
@@ -199,6 +243,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
     </div>
     <span class="logo-text">THREE SWORDS <span>TECH</span></span>
   </a>
+  <button class="nav-burger" aria-label="Toggle menu">☰</button>
   <ul>
     <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
@@ -295,41 +340,83 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
     <a href="#contact" class="btn-secondary fade-up">All Services →</a>
   </div>
   <div class="services-grid">
-    <div class="service-card fade-up">
-      <div class="service-ico">🧠</div>
-      <h3 class="service-name">AI & Machine Learning</h3>
-      <p class="service-desc">Custom ML models, LLM integrations, intelligent automation and data-driven systems that learn and adapt.</p>
-      <div class="service-arrow">Explore ——→</div>
+    <div class="service-card fade-up" data-service="ai-ml">
+      <div class="service-card-header">
+        <div class="service-ico">🧠</div>
+        <h3 class="service-name">AI & Machine Learning</h3>
+        <span class="service-chevron">›</span>
+      </div>
+      <div class="service-expand-body">
+        <p class="service-desc">Custom ML models, LLM integrations, intelligent automation and data-driven systems that learn and adapt.</p>
+        <div class="service-features-mobile"></div>
+        <a href="#contact" class="service-mobile-cta">Get In Touch →</a>
+      </div>
+      <button class="service-arrow" data-service="ai-ml">Explore ——→</button>
     </div>
-    <div class="service-card fade-up fade-up-d1">
-      <div class="service-ico">👁</div>
-      <h3 class="service-name">Computer Vision</h3>
-      <p class="service-desc">Real-time object detection, recognition, inspection and tracking systems powered by state-of-the-art vision models.</p>
-      <div class="service-arrow">Explore ——→</div>
+    <div class="service-card fade-up fade-up-d1" data-service="computer-vision">
+      <div class="service-card-header">
+        <div class="service-ico">👁</div>
+        <h3 class="service-name">Computer Vision</h3>
+        <span class="service-chevron">›</span>
+      </div>
+      <div class="service-expand-body">
+        <p class="service-desc">Real-time object detection, recognition, inspection and tracking systems powered by state-of-the-art vision models.</p>
+        <div class="service-features-mobile"></div>
+        <a href="#contact" class="service-mobile-cta">Get In Touch →</a>
+      </div>
+      <button class="service-arrow" data-service="computer-vision">Explore ——→</button>
     </div>
-    <div class="service-card fade-up fade-up-d2">
-      <div class="service-ico">💻</div>
-      <h3 class="service-name">Software Development</h3>
-      <p class="service-desc">Full-stack applications, APIs, cloud architectures and enterprise platforms — built to scale from day one.</p>
-      <div class="service-arrow">Explore ——→</div>
+    <div class="service-card fade-up fade-up-d2" data-service="software-dev">
+      <div class="service-card-header">
+        <div class="service-ico">💻</div>
+        <h3 class="service-name">Software Development</h3>
+        <span class="service-chevron">›</span>
+      </div>
+      <div class="service-expand-body">
+        <p class="service-desc">Full-stack applications, APIs, cloud architectures and enterprise platforms — built to scale from day one.</p>
+        <div class="service-features-mobile"></div>
+        <a href="#contact" class="service-mobile-cta">Get In Touch →</a>
+      </div>
+      <button class="service-arrow" data-service="software-dev">Explore ——→</button>
     </div>
-    <div class="service-card fade-up fade-up-d3">
-      <div class="service-ico">📡</div>
-      <h3 class="service-name">IoT Engineering</h3>
-      <p class="service-desc">End-to-end connected device solutions — from sensor networks and firmware to cloud dashboards and analytics.</p>
-      <div class="service-arrow">Explore ——→</div>
+    <div class="service-card fade-up fade-up-d3" data-service="iot">
+      <div class="service-card-header">
+        <div class="service-ico">📡</div>
+        <h3 class="service-name">IoT Engineering</h3>
+        <span class="service-chevron">›</span>
+      </div>
+      <div class="service-expand-body">
+        <p class="service-desc">End-to-end connected device solutions — from sensor networks and firmware to cloud dashboards and analytics.</p>
+        <div class="service-features-mobile"></div>
+        <a href="#contact" class="service-mobile-cta">Get In Touch →</a>
+      </div>
+      <button class="service-arrow" data-service="iot">Explore ——→</button>
     </div>
-    <div class="service-card fade-up fade-up-d4">
-      <div class="service-ico">⚙️</div>
-      <h3 class="service-name">Hardware Engineering</h3>
-      <p class="service-desc">PCB design, embedded systems, FPGA development and full hardware product lifecycle from prototype to production.</p>
-      <div class="service-arrow">Explore ——→</div>
+    <div class="service-card fade-up fade-up-d4" data-service="hardware">
+      <div class="service-card-header">
+        <div class="service-ico">⚙️</div>
+        <h3 class="service-name">Hardware Engineering</h3>
+        <span class="service-chevron">›</span>
+      </div>
+      <div class="service-expand-body">
+        <p class="service-desc">PCB design, embedded systems, FPGA development and full hardware product lifecycle from prototype to production.</p>
+        <div class="service-features-mobile"></div>
+        <a href="#contact" class="service-mobile-cta">Get In Touch →</a>
+      </div>
+      <button class="service-arrow" data-service="hardware">Explore ——→</button>
     </div>
-    <div class="service-card fade-up fade-up-d5">
-      <div class="service-ico">🔬</div>
-      <h3 class="service-name">Tech Consulting</h3>
-      <p class="service-desc">Architecture reviews, technology strategy, due diligence and hands-on guidance for teams building complex products.</p>
-      <div class="service-arrow">Explore ——→</div>
+    <div class="service-card fade-up fade-up-d5" data-service="consulting">
+      <div class="service-card-header">
+        <div class="service-ico">🔬</div>
+        <h3 class="service-name">Tech Consulting</h3>
+        <span class="service-chevron">›</span>
+      </div>
+      <div class="service-expand-body">
+        <p class="service-desc">Architecture reviews, technology strategy, due diligence and hands-on guidance for teams building complex products.</p>
+        <div class="service-features-mobile"></div>
+        <a href="#contact" class="service-mobile-cta">Get In Touch →</a>
+      </div>
+      <button class="service-arrow" data-service="consulting">Explore ——→</button>
     </div>
   </div>
 </section>
@@ -473,6 +560,21 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
   </div>
 </footer>
 
+<!-- SERVICE MODAL -->
+<div id="service-modal">
+  <div class="modal-overlay">
+    <div class="modal-box">
+      <button class="modal-close">&times;</button>
+      <div class="modal-icon"></div>
+      <div class="modal-label"></div>
+      <h2 class="modal-title"></h2>
+      <p class="modal-desc"></p>
+      <div class="modal-features"></div>
+      <a href="#contact" class="btn-primary modal-cta">Get In Touch</a>
+    </div>
+  </div>
+</div>
+
 <script>
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -483,6 +585,29 @@ document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 window.addEventListener('load', () => {
   document.querySelectorAll('.hero .fade-up').forEach(el => el.classList.add('visible'));
 });
+
+// Mobile Hamburger Menu
+const navBurger = document.querySelector('.nav-burger');
+const nav = document.querySelector('nav');
+const navLinks = document.querySelectorAll('nav ul a');
+
+if(navBurger) {
+  navBurger.addEventListener('click', () => {
+    nav.classList.toggle('nav-mobile-open');
+  });
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('nav-mobile-open');
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if(!nav.contains(e.target)) {
+      nav.classList.remove('nav-mobile-open');
+    }
+  });
+}
 
 // Randomize vortex-core positions
 const sizes = {lg: 150, md: 110, sm: 50, xs: 30};
@@ -518,6 +643,116 @@ const randomizeSection = section => {
 document.addEventListener('DOMContentLoaded', () => {
   const sections = document.querySelectorAll('section');
   sections.forEach(randomizeSection);
+});
+
+// Service Modal
+const serviceData = {
+  'ai-ml': {
+    icon: '🧠',
+    label: 'AI & Machine Learning',
+    title: 'AI & Machine Learning',
+    desc: 'End-to-end ML solutions from ideation to deployment. We design, train, and integrate custom models that solve real business problems — not just demos.',
+    features: ['Custom model training & fine-tuning', 'LLM integration & prompt engineering', 'MLOps & model monitoring', 'Data pipelines & feature engineering']
+  },
+  'computer-vision': {
+    icon: '👁',
+    label: 'Computer Vision',
+    title: 'Computer Vision',
+    desc: 'We build vision systems that see and understand the world in real time — from factory floors to autonomous platforms, with accuracy that meets production standards.',
+    features: ['Real-time object detection & tracking', 'Image classification & segmentation', 'Defect inspection systems', 'Edge-deployed vision models']
+  },
+  'software-dev': {
+    icon: '💻',
+    label: 'Software Development',
+    title: 'Software Development',
+    desc: 'Robust, scalable software built by engineers who care about architecture. From APIs to full-stack platforms, we build systems that last.',
+    features: ['Full-stack web & mobile applications', 'REST & GraphQL API design', 'Cloud-native architecture (AWS/GCP/Azure)', 'Performance optimization & code review']
+  },
+  'iot': {
+    icon: '📡',
+    label: 'IoT Engineering',
+    title: 'IoT Engineering',
+    desc: 'We connect hardware to the cloud — building complete IoT ecosystems from sensor firmware to real-time dashboards with reliability at every layer.',
+    features: ['Embedded firmware & sensor integration', 'MQTT/CoAP protocol implementation', 'Cloud IoT platforms & dashboards', 'Remote OTA update systems']
+  },
+  'hardware': {
+    icon: '⚙️',
+    label: 'Hardware Engineering',
+    title: 'Hardware Engineering',
+    desc: 'From schematic to prototype to production-ready hardware. We handle the full lifecycle with a focus on manufacturability, reliability, and cost efficiency.',
+    features: ['PCB schematic & layout design', 'FPGA development & HDL coding', 'Embedded Linux & RTOS systems', 'DFM review & prototype testing']
+  },
+  'consulting': {
+    icon: '🔬',
+    label: 'Tech Consulting',
+    title: 'Tech Consulting',
+    desc: 'Experienced engineers who\'ve shipped real products advising on your toughest technical decisions — architecture, team, tooling, and strategy.',
+    features: ['Architecture design & review', 'Technology stack selection', 'Technical due diligence', 'Engineering team mentoring']
+  }
+};
+
+const modal = document.getElementById('service-modal');
+const modalOverlay = modal.querySelector('.modal-overlay');
+const modalClose = modal.querySelector('.modal-close');
+
+function openModal(serviceKey) {
+  const data = serviceData[serviceKey];
+  modal.querySelector('.modal-icon').textContent = data.icon;
+  modal.querySelector('.modal-label').textContent = data.label;
+  modal.querySelector('.modal-title').textContent = data.title;
+  modal.querySelector('.modal-desc').textContent = data.desc;
+
+  const featuresHtml = data.features.map(f => `
+    <div class="modal-feature">
+      <div class="modal-feature-check">✓</div>
+      <div class="modal-feature-text">${f}</div>
+    </div>
+  `).join('');
+  modal.querySelector('.modal-features').innerHTML = featuresHtml;
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.service-arrow').forEach(btn => {
+  btn.addEventListener('click', () => openModal(btn.dataset.service));
+});
+
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', e => {
+  if(e.target === modalOverlay) closeModal();
+});
+
+modal.querySelector('.modal-cta').addEventListener('click', closeModal);
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+});
+
+// Mobile Service Accordion
+const mq = window.matchMedia('(max-width:900px)');
+document.querySelectorAll('.service-card').forEach(card => {
+  card.addEventListener('click', () => {
+    if(!mq.matches) return;
+    const key = card.dataset.service;
+    const isExpanded = card.classList.contains('expanded');
+    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('expanded'));
+    if(!isExpanded) {
+      card.classList.add('expanded');
+      const featDiv = card.querySelector('.service-features-mobile');
+      if(!featDiv.children.length) {
+        const data = serviceData[key];
+        featDiv.innerHTML = (data.features || []).map(f =>
+          `<div class="mobile-feature"><span class="mobile-feature-check">✓</span><span class="mobile-feature-text">${f}</span></div>`
+        ).join('');
+      }
+    }
+  });
 });
 </script>
 </body>
