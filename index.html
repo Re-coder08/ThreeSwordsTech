@@ -34,10 +34,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;display:flex;al
 .logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;letter-spacing:0.04em;color:var(--text)}
 .logo-text span{color:var(--accent)}
 nav ul{list-style:none;display:flex;gap:36px}
-nav ul a{text-decoration:none;color:var(--muted);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:0.03em;transition:color 0.2s}
+nav ul a{text-decoration:none;color:var(--muted);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:0.03em;transition:color 0.2s;padding:8px 0}
 nav ul a:hover{color:var(--text)}
-.nav-cta{background:var(--accent);color:#08090D!important;padding:8px 20px;border-radius:4px;font-weight:500!important;transition:opacity 0.2s!important}
+.nav-cta{background:var(--accent);color:#08090D!important;padding:12px 20px;border-radius:4px;font-weight:500!important;transition:opacity 0.2s!important}
 .nav-cta:hover{opacity:0.85}
+.nav-burger{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;padding:8px}
+nav.nav-mobile-open ul{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:rgba(8,9,13,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:20px 5%;gap:0}
 
 /* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:0 5%}
@@ -181,10 +183,42 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
 .fade-up-d6{transition-delay:0.6s}
 
 @media(max-width:900px){
-  .swords-grid,.services-grid,.stats-inner,.why-grid,.footer-inner{grid-template-columns:1fr}
+  /* NAV */
+  .nav-burger{display:block}
+  nav ul{display:none;position:absolute;top:72px;left:0;right:0;background:rgba(8,9,13,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);flex-direction:column;padding:20px 5%;gap:20px}
+  nav.nav-mobile-open ul{display:flex}
+
+  /* HERO */
+  section{padding:60px 5%}
+  .hero-scroll{display:none}
   .hero-stats{display:none}
   .swords-animation{display:none}
+  .vortex-core{display:none}
+
+  /* GRIDS */
+  .swords-grid,.services-grid,.stats-inner,.why-grid,.footer-inner{grid-template-columns:1fr}
   .services-header{flex-direction:column;align-items:flex-start}
+
+  /* SERVICE CARDS */
+  .service-arrow{opacity:1}
+
+  /* STATS */
+  .stat-block{padding:28px 20px}
+
+  /* WHY SECTION */
+  .why-section{overflow:hidden}
+
+  /* MODAL */
+  .modal-box{padding:32px 24px}
+  .modal-close{padding:8px;font-size:20px}
+
+  /* FOOTER */
+  .footer-col a{padding:4px 0}
+  .footer-bottom{flex-wrap:wrap;gap:16px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
 }
 </style>
 </head>
@@ -199,6 +233,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
     </div>
     <span class="logo-text">THREE SWORDS <span>TECH</span></span>
   </a>
+  <button class="nav-burger" aria-label="Toggle menu">☰</button>
   <ul>
     <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
@@ -519,6 +554,50 @@ document.addEventListener('DOMContentLoaded', () => {
   const sections = document.querySelectorAll('section');
   sections.forEach(randomizeSection);
 });
+
+// Mobile Hamburger Menu
+const navBurger = document.querySelector('.nav-burger');
+const nav = document.querySelector('nav');
+const navLinks = document.querySelectorAll('nav ul a');
+
+if(navBurger) {
+  navBurger.addEventListener('click', () => {
+    nav.classList.toggle('nav-mobile-open');
+  });
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('nav-mobile-open');
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if(!nav.contains(e.target)) {
+      nav.classList.remove('nav-mobile-open');
+    }
+  });
+}
+
+// Fix Vortex Randomizer - Cap circles to viewport width
+const originalRandomizeSection = randomizeSection;
+randomizeSection = function(section) {
+  const rect = section.getBoundingClientRect();
+  const w = rect.width, h = rect.height;
+  const cores = [...section.querySelectorAll('.vortex-core')];
+  const placed = [];
+  cores.forEach(core => {
+    const s = getSize(core);
+    let x, y, attempts = 0;
+    do {
+      x = Math.random() * (Math.max(w - s - 20, 50)) + 10;
+      y = Math.random() * (Math.max(h - s - 20, 50)) + 10;
+      attempts++;
+    } while(checkOverlap(x, y, s, placed) && attempts < 30);
+    placed.push({x, y, s});
+    core.style.left = x + 'px';
+    core.style.top = y + 'px';
+  });
+};
 </script>
 </body>
 </html>
