@@ -118,7 +118,7 @@ section{padding:100px 5%}
 .service-card:hover .service-ico{border-color:var(--accent)}
 .service-name{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;margin-bottom:10px}
 .service-desc{color:var(--muted);font-size:14px;line-height:1.7;font-weight:300}
-.service-arrow{margin-top:20px;color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px;opacity:0;transition:opacity 0.3s;display:flex;align-items:center;gap:6px}
+.service-arrow{margin-top:20px;color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px;opacity:0;transition:opacity 0.3s;display:flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;padding:0}
 .service-card:hover .service-arrow{opacity:1}
 
 /* STATS */
@@ -179,6 +179,24 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
 .fade-up-d4{transition-delay:0.4s}
 .fade-up-d5{transition-delay:0.5s}
 .fade-up-d6{transition-delay:0.6s}
+
+/* SERVICE MODAL */
+#service-modal{display:none}
+#service-modal.open{display:flex}
+.modal-overlay{position:fixed;inset:0;background:rgba(8,9,13,0.92);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;z-index:200}
+.modal-box{background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,0 100%);max-width:600px;width:90%;max-height:85vh;overflow-y:auto;padding:48px 40px;position:relative;animation:modalIn 0.35s ease}
+.modal-close{position:absolute;top:20px;right:20px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:24px;transition:color 0.2s}
+.modal-close:hover{color:var(--accent)}
+.modal-icon{font-size:48px;margin-bottom:16px}
+.modal-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:12px;opacity:0.8}
+.modal-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:32px;color:var(--text);margin-bottom:20px;line-height:1.2}
+.modal-desc{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:32px;font-weight:300}
+.modal-features{display:flex;flex-direction:column;gap:16px;margin-bottom:32px}
+.modal-feature{display:flex;gap:12px;align-items:flex-start}
+.modal-feature-check{color:var(--accent);font-weight:700;margin-top:2px;flex-shrink:0}
+.modal-feature-text{color:var(--muted);font-size:14px;line-height:1.6}
+.modal-cta{display:inline-block;margin-top:12px}
+@keyframes modalIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
 
 @media(max-width:900px){
   .swords-grid,.services-grid,.stats-inner,.why-grid,.footer-inner{grid-template-columns:1fr}
@@ -299,37 +317,37 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
       <div class="service-ico">🧠</div>
       <h3 class="service-name">AI & Machine Learning</h3>
       <p class="service-desc">Custom ML models, LLM integrations, intelligent automation and data-driven systems that learn and adapt.</p>
-      <div class="service-arrow">Explore ——→</div>
+      <button class="service-arrow" data-service="ai-ml">Explore ——→</button>
     </div>
     <div class="service-card fade-up fade-up-d1">
       <div class="service-ico">👁</div>
       <h3 class="service-name">Computer Vision</h3>
       <p class="service-desc">Real-time object detection, recognition, inspection and tracking systems powered by state-of-the-art vision models.</p>
-      <div class="service-arrow">Explore ——→</div>
+      <button class="service-arrow" data-service="computer-vision">Explore ——→</button>
     </div>
     <div class="service-card fade-up fade-up-d2">
       <div class="service-ico">💻</div>
       <h3 class="service-name">Software Development</h3>
       <p class="service-desc">Full-stack applications, APIs, cloud architectures and enterprise platforms — built to scale from day one.</p>
-      <div class="service-arrow">Explore ——→</div>
+      <button class="service-arrow" data-service="software-dev">Explore ——→</button>
     </div>
     <div class="service-card fade-up fade-up-d3">
       <div class="service-ico">📡</div>
       <h3 class="service-name">IoT Engineering</h3>
       <p class="service-desc">End-to-end connected device solutions — from sensor networks and firmware to cloud dashboards and analytics.</p>
-      <div class="service-arrow">Explore ——→</div>
+      <button class="service-arrow" data-service="iot">Explore ——→</button>
     </div>
     <div class="service-card fade-up fade-up-d4">
       <div class="service-ico">⚙️</div>
       <h3 class="service-name">Hardware Engineering</h3>
       <p class="service-desc">PCB design, embedded systems, FPGA development and full hardware product lifecycle from prototype to production.</p>
-      <div class="service-arrow">Explore ——→</div>
+      <button class="service-arrow" data-service="hardware">Explore ——→</button>
     </div>
     <div class="service-card fade-up fade-up-d5">
       <div class="service-ico">🔬</div>
       <h3 class="service-name">Tech Consulting</h3>
       <p class="service-desc">Architecture reviews, technology strategy, due diligence and hands-on guidance for teams building complex products.</p>
-      <div class="service-arrow">Explore ——→</div>
+      <button class="service-arrow" data-service="consulting">Explore ——→</button>
     </div>
   </div>
 </section>
@@ -473,6 +491,21 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 3
   </div>
 </footer>
 
+<!-- SERVICE MODAL -->
+<div id="service-modal">
+  <div class="modal-overlay">
+    <div class="modal-box">
+      <button class="modal-close">&times;</button>
+      <div class="modal-icon"></div>
+      <div class="modal-label"></div>
+      <h2 class="modal-title"></h2>
+      <p class="modal-desc"></p>
+      <div class="modal-features"></div>
+      <a href="#contact" class="btn-primary modal-cta">Get In Touch</a>
+    </div>
+  </div>
+</div>
+
 <script>
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -518,6 +551,93 @@ const randomizeSection = section => {
 document.addEventListener('DOMContentLoaded', () => {
   const sections = document.querySelectorAll('section');
   sections.forEach(randomizeSection);
+});
+
+// Service Modal
+const serviceData = {
+  'ai-ml': {
+    icon: '🧠',
+    label: 'AI & Machine Learning',
+    title: 'AI & Machine Learning',
+    desc: 'End-to-end ML solutions from ideation to deployment. We design, train, and integrate custom models that solve real business problems — not just demos.',
+    features: ['Custom model training & fine-tuning', 'LLM integration & prompt engineering', 'MLOps & model monitoring', 'Data pipelines & feature engineering']
+  },
+  'computer-vision': {
+    icon: '👁',
+    label: 'Computer Vision',
+    title: 'Computer Vision',
+    desc: 'We build vision systems that see and understand the world in real time — from factory floors to autonomous platforms, with accuracy that meets production standards.',
+    features: ['Real-time object detection & tracking', 'Image classification & segmentation', 'Defect inspection systems', 'Edge-deployed vision models']
+  },
+  'software-dev': {
+    icon: '💻',
+    label: 'Software Development',
+    title: 'Software Development',
+    desc: 'Robust, scalable software built by engineers who care about architecture. From APIs to full-stack platforms, we build systems that last.',
+    features: ['Full-stack web & mobile applications', 'REST & GraphQL API design', 'Cloud-native architecture (AWS/GCP/Azure)', 'Performance optimization & code review']
+  },
+  'iot': {
+    icon: '📡',
+    label: 'IoT Engineering',
+    title: 'IoT Engineering',
+    desc: 'We connect hardware to the cloud — building complete IoT ecosystems from sensor firmware to real-time dashboards with reliability at every layer.',
+    features: ['Embedded firmware & sensor integration', 'MQTT/CoAP protocol implementation', 'Cloud IoT platforms & dashboards', 'Remote OTA update systems']
+  },
+  'hardware': {
+    icon: '⚙️',
+    label: 'Hardware Engineering',
+    title: 'Hardware Engineering',
+    desc: 'From schematic to prototype to production-ready hardware. We handle the full lifecycle with a focus on manufacturability, reliability, and cost efficiency.',
+    features: ['PCB schematic & layout design', 'FPGA development & HDL coding', 'Embedded Linux & RTOS systems', 'DFM review & prototype testing']
+  },
+  'consulting': {
+    icon: '🔬',
+    label: 'Tech Consulting',
+    title: 'Tech Consulting',
+    desc: 'Experienced engineers who\'ve shipped real products advising on your toughest technical decisions — architecture, team, tooling, and strategy.',
+    features: ['Architecture design & review', 'Technology stack selection', 'Technical due diligence', 'Engineering team mentoring']
+  }
+};
+
+const modal = document.getElementById('service-modal');
+const modalOverlay = modal.querySelector('.modal-overlay');
+const modalClose = modal.querySelector('.modal-close');
+
+function openModal(serviceKey) {
+  const data = serviceData[serviceKey];
+  modal.querySelector('.modal-icon').textContent = data.icon;
+  modal.querySelector('.modal-label').textContent = data.label;
+  modal.querySelector('.modal-title').textContent = data.title;
+  modal.querySelector('.modal-desc').textContent = data.desc;
+
+  const featuresHtml = data.features.map(f => `
+    <div class="modal-feature">
+      <div class="modal-feature-check">✓</div>
+      <div class="modal-feature-text">${f}</div>
+    </div>
+  `).join('');
+  modal.querySelector('.modal-features').innerHTML = featuresHtml;
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.service-arrow').forEach(btn => {
+  btn.addEventListener('click', () => openModal(btn.dataset.service));
+});
+
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', e => {
+  if(e.target === modalOverlay) closeModal();
+});
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && modal.classList.contains('open')) closeModal();
 });
 </script>
 </body>
