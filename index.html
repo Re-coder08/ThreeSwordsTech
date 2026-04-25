@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Three Swords Technologies — Strength. Precision. Mastery.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#08090D;
+  --bg2:#0E1018;
+  --bg3:#131520;
+  --accent:#00AAFF;
+  --accent2:#C0C8D8;
+  --red:#CC2200;
+  --text:#F0F4FF;
+  --muted:#7A8499;
+  --border:rgba(192,200,216,0.12);
+  --glow:rgba(0,170,255,0.18);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:72px;background:rgba(8,9,13,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-icon{width:36px;height:36px;position:relative;display:flex;align-items:center;justify-content:center}
+.logo-sword{position:absolute;width:3px;height:28px;background:linear-gradient(to bottom,var(--accent),transparent);border-radius:2px}
+.logo-sword:nth-child(1){transform:rotate(-18deg) translateX(-7px)}
+.logo-sword:nth-child(2){transform:rotate(0deg)}
+.logo-sword:nth-child(3){transform:rotate(18deg) translateX(7px)}
+.logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;letter-spacing:0.04em;color:var(--text)}
+.logo-text span{color:var(--accent)}
+nav ul{list-style:none;display:flex;gap:36px}
+nav ul a{text-decoration:none;color:var(--muted);font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:0.03em;transition:color 0.2s}
+nav ul a:hover{color:var(--text)}
+.nav-cta{background:var(--accent);color:#08090D!important;padding:8px 20px;border-radius:4px;font-weight:500!important;transition:opacity 0.2s!important}
+.nav-cta:hover{opacity:0.85}
+.nav-burger{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;padding:8px;z-index:101}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:0 5%}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,170,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,170,255,0.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%)}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,170,255,0.07) 0%,transparent 70%);pointer-events:none}
+.hero-slash{position:absolute;top:0;right:0;width:50%;height:100%;background:linear-gradient(135deg,transparent 50%,rgba(0,170,255,0.03) 50%)}
+.hero-content{position:relative;z-index:2;max-width:760px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--border);border-radius:2px;margin-bottom:28px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase}
+.badge-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(42px,6vw,80px);line-height:1.2;letter-spacing:0.03em;margin-bottom:24px}
+h1 .line1{color:var(--text);transition:color 0.4s ease}
+h1:hover .line1{color:var(--accent)}
+h1 .line2{color:var(--accent);transition:color 0.4s ease}
+h1:hover .line2{color:var(--text)}
+h1 .line3{-webkit-text-stroke:1px rgba(192,200,216,1);color:transparent;transition:-webkit-text-stroke 0.4s ease}
+h1:hover .line3{-webkit-text-stroke:2px var(--accent)}
+.hero-sub{font-size:18px;color:var(--muted);line-height:1.7;max-width:520px;margin-bottom:40px;font-weight:300}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#08090D;padding:14px 28px;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.06em;text-transform:uppercase;border:none;cursor:pointer;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);text-decoration:none;display:inline-block;transition:opacity 0.2s}
+.btn-primary:hover{opacity:0.85}
+.btn-secondary{background:transparent;color:var(--text);padding:14px 28px;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.06em;text-transform:uppercase;border:1px solid var(--border);cursor:pointer;text-decoration:none;display:inline-block;transition:border-color 0.2s,color 0.2s}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.hero-stats{position:absolute;right:5%;bottom:80px;display:flex;flex-direction:column;gap:24px;z-index:2}
+.stat{text-align:right}
+.stat-num{font-family:'Syne',sans-serif;font-weight:800;font-size:32px;color:var(--text)}
+.stat-num span{color:var(--accent)}
+.stat-label{font-size:12px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:11px;letter-spacing:0.1em;font-family:'JetBrains Mono',monospace;text-transform:uppercase}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--accent),transparent);animation:scrollAnim 2s infinite}
+@keyframes scrollAnim{0%{opacity:0;transform:scaleY(0);transform-origin:top}50%{opacity:1}100%{opacity:0;transform:scaleY(1);transform-origin:top}}
+
+/* ORBITAL VORTEX ACCENT */
+.swords-animation{position:absolute;right:5%;top:50%;transform:translateY(-50%);width:200px;height:200px;display:flex;align-items:center;justify-content:center}
+.vortex-core{position:absolute;width:80px;height:80px;border:2px solid rgba(0,170,255,0.3);border-radius:50%;animation:coreSpin 14s linear infinite;pointer-events:none}
+.vortex-core::after{content:'';position:absolute;inset:15px;border:1px solid rgba(0,170,255,0.15);border-radius:50%;animation:coreCounter 14s linear infinite reverse}
+.vortex-core.lg{width:150px;height:150px}
+.vortex-core.lg::after{inset:28px}
+.vortex-core.md{width:110px;height:110px}
+.vortex-core.md::after{inset:20px}
+.vortex-core.sm{width:50px;height:50px;border-width:1.5px}
+.vortex-core.sm::after{inset:10px;border-width:1px}
+.vortex-core.xs{width:30px;height:30px;border-width:1px;border-color:rgba(0,170,255,0.2)}
+.vortex-core.xs::after{inset:6px;border-width:0.5px;border-color:rgba(0,170,255,0.1)}
+@keyframes coreSpin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes coreCounter{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+
+/* SECTION COMMON */
+section{padding:100px 5%}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:16px}
+.section-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,4vw,48px);line-height:1.1;letter-spacing:-0.02em;margin-bottom:20px}
+.section-sub{color:var(--muted);font-size:17px;line-height:1.7;font-weight:300;max-width:520px}
+.slash-divider{width:60px;height:3px;background:linear-gradient(to right,var(--accent),transparent);margin-bottom:32px;clip-path:polygon(4px 0,100% 0,calc(100% - 4px) 100%,0 100%)}
+
+/* THREE SWORDS */
+.swords-section{background:var(--bg2);position:relative;overflow:hidden}
+.swords-section::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 60%,rgba(0,170,255,0.03) 100%)}
+.swords-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:64px}
+.sword-card{background:var(--bg2);padding:48px 36px;position:relative;overflow:hidden;transition:background 0.3s}
+.sword-card:hover{background:var(--bg3)}
+.sword-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--accent),transparent);opacity:0;transition:opacity 0.3s}
+.sword-card:hover::after{opacity:1}
+.sword-num{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);margin-bottom:20px;opacity:0.6}
+.sword-icon{font-size:36px;margin-bottom:20px}
+.sword-title{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;margin-bottom:12px}
+.sword-title span{color:var(--accent)}
+.sword-desc{color:var(--muted);font-size:15px;line-height:1.7;font-weight:300}
+
+/* SERVICES */
+.services-section{background:var(--bg)}
+.services-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;flex-wrap:wrap;gap:24px}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.service-card{background:var(--bg);padding:36px 32px;transition:background 0.3s;cursor:default;position:relative;overflow:hidden}
+.service-card:hover{background:var(--bg2)}
+.service-card::before{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:var(--accent);transition:height 0.4s}
+.service-card:hover::before{height:100%}
+.service-ico{width:44px;height:44px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:18px;transition:border-color 0.3s}
+.service-card:hover .service-ico{border-color:var(--accent)}
+.service-name{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;margin-bottom:10px}
+.service-desc{color:var(--muted);font-size:14px;line-height:1.7;font-weight:300}
+.service-arrow{margin-top:20px;color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px;opacity:0;transition:opacity 0.3s;display:flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;padding:0}
+.service-card:hover .service-arrow{opacity:1}
+.service-chevron{display:none}
+.service-features-mobile,.service-mobile-cta{display:none}
+
+/* STATS */
+.stats-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stats-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.stat-block{background:var(--bg2);padding:48px 40px;text-align:center}
+.stat-big{font-family:'Syne',sans-serif;font-weight:800;font-size:52px;color:var(--text);line-height:1}
+.stat-big span{color:var(--accent)}
+.stat-tag{font-size:13px;color:var(--muted);margin-top:8px;letter-spacing:0.05em}
+
+/* WHY US */
+.why-section{background:var(--bg)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:64px}
+.why-list{display:flex;flex-direction:column;gap:32px}
+.why-item{display:flex;gap:20px;align-items:flex-start}
+.why-check{width:32px;height:32px;border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent);font-size:14px;margin-top:2px}
+.why-item-title{font-family:'Syne',sans-serif;font-weight:700;font-size:17px;margin-bottom:6px}
+.why-item-desc{color:var(--muted);font-size:14px;line-height:1.7;font-weight:300}
+.why-visual{position:relative;height:400px;display:flex;align-items:center;justify-content:center}
+.why-hex{width:200px;height:200px;background:var(--bg3);border:1px solid var(--border);transform:rotate(45deg);display:flex;align-items:center;justify-content:center;position:relative}
+.why-hex::before{content:'';position:absolute;inset:-12px;border:1px solid rgba(0,170,255,0.2);transform:rotate(0)}
+.why-hex::after{content:'';position:absolute;inset:-24px;border:1px solid rgba(0,170,255,0.1)}
+.why-hex-inner{transform:rotate(-45deg);font-family:'Syne',sans-serif;font-size:13px;text-align:center;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;line-height:1.6}
+.orbit{position:absolute;width:300px;height:300px;border:1px dashed rgba(0,170,255,0.15);border-radius:50%;animation:spin 20s linear infinite}
+.orbit2{position:absolute;width:380px;height:380px;border:1px dashed rgba(0,170,255,0.08);border-radius:50%;animation:spin 30s linear infinite reverse}
+.orbit-dot{position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:8px;height:8px;background:var(--accent);border-radius:50%}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+/* CTA BANNER */
+.cta-section{background:var(--bg2);position:relative;overflow:hidden;text-align:center;padding:100px 5%}
+.cta-section::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,170,255,0.05) 0%,transparent 50%,rgba(204,34,0,0.03) 100%)}
+.cta-section h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(32px,5vw,64px);line-height:1.1;letter-spacing:-0.02em;margin-bottom:20px}
+.cta-section p{color:var(--muted);font-size:18px;max-width:480px;margin:0 auto 40px;font-weight:300}
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:60px 5% 32px}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand .logo{margin-bottom:16px;display:flex}
+.footer-brand p{color:var(--muted);font-size:14px;line-height:1.7;font-weight:300;max-width:260px}
+.footer-col h4{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col a{color:var(--muted);font-size:14px;text-decoration:none;transition:color 0.2s}
+.footer-col a:hover{color:var(--text)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{color:var(--muted);font-size:12px;font-family:'JetBrains Mono',monospace}
+.footer-swords{display:flex;gap:6px;align-items:center}
+.f-sword{width:2px;height:18px;background:var(--accent);opacity:0.6;border-radius:1px}
+.f-sword:nth-child(1){transform:rotate(-12deg)}
+.f-sword:nth-child(3){transform:rotate(12deg)}
+
+/* ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.fade-up-d1{transition-delay:0.1s}
+.fade-up-d2{transition-delay:0.2s}
+.fade-up-d3{transition-delay:0.3s}
+.fade-up-d4{transition-delay:0.4s}
+.fade-up-d5{transition-delay:0.5s}
+.fade-up-d6{transition-delay:0.6s}
+
+/* SERVICE MODAL */
+#service-modal{display:none}
+#service-modal.open{display:flex}
+.modal-overlay{position:fixed;inset:0;background:rgba(8,9,13,0.92);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;z-index:200}
+.modal-box{background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--accent);clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,0 100%);max-width:600px;width:90%;max-height:85vh;overflow-y:auto;padding:48px 40px;position:relative;animation:modalIn 0.35s ease}
+.modal-close{position:absolute;top:20px;right:20px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:24px;transition:color 0.2s}
+.modal-close:hover{color:var(--accent)}
+.modal-icon{font-size:48px;margin-bottom:16px}
+.modal-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:12px;opacity:0.8}
+.modal-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:32px;color:var(--text);margin-bottom:20px;line-height:1.2}
+.modal-desc{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:32px;font-weight:300}
+.modal-features{display:flex;flex-direction:column;gap:16px;margin-bottom:32px}
+.modal-feature{display:flex;gap:12px;align-items:flex-start}
+.modal-feature-check{color:var(--accent);font-weight:700;margin-top:2px;flex-shrink:0}
+.modal-feature-text{color:var(--muted);font-size:14px;line-height:1.6}
+.modal-cta{display:inline-block;margin-top:12px}
+@keyframes modalIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+
+@media(max-width:900px){
+  /* NAV */
+  .nav-burger{display:block}
+  nav ul{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(8,9,13,0.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);flex-direction:column;padding:20px 5%;gap:20px;z-index:99;max-height:calc(100vh - 72px);overflow-y:auto}
+  nav.nav-mobile-open ul{display:flex}
+  nav ul a{padding:8px 0}
+
+  .swords-grid,.services-grid,.stats-inner,.why-grid,.footer-inner{grid-template-columns:1fr}
+  .hero-stats{display:none}
+  .swords-animation{display:none}
+  .services-header{flex-direction:column;align-items:flex-start}
+
+  /* Service Card Accordion */
+  .service-card{padding:20px 24px;cursor:pointer}
+  .service-card-header{display:flex;align-items:center;gap:14px;justify-content:space-between}
+  .service-card-header .service-ico{margin-bottom:0;flex-shrink:0}
+  .service-card-header .service-name{flex:1;margin-bottom:0;font-size:16px;font-weight:700}
+  .service-chevron{display:block;color:var(--accent);font-size:22px;transition:transform 0.3s;flex-shrink:0;line-height:1}
+  .service-card.expanded .service-chevron{transform:rotate(90deg)}
+  .service-expand-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+  .service-card.expanded .service-expand-body{max-height:500px}
+  .service-desc{margin-top:16px;font-size:14px}
+  .service-features-mobile{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+  .mobile-feature{display:flex;gap:10px;align-items:flex-start}
+  .mobile-feature-check{color:var(--accent);font-weight:700;flex-shrink:0}
+  .mobile-feature-text{color:var(--muted);font-size:13px;line-height:1.6}
+  .service-mobile-cta{display:inline-block;margin-top:20px;color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-decoration:none;text-transform:uppercase}
+  .service-arrow{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">
+    <div class="logo-icon">
+      <div class="logo-sword"></div>
+      <div class="logo-sword"></div>
+      <div class="logo-sword"></div>
+    </div>
+    <span class="logo-text">THREE SWORDS <span>TECH</span></span>
+  </a>
+  <button class="nav-burger" aria-label="Toggle menu">☰</button>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Get In Touch</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-slash"></div>
+  <div class="vortex-core lg" style="top:10%;left:15%;opacity:0.75"></div>
+  <div class="vortex-core sm" style="top:35%;left:8%;opacity:0.7"></div>
+  <div class="vortex-core xs" style="bottom:25%;left:20%;opacity:0.72"></div>
+  <div class="vortex-core md" style="top:50%;right:20%;opacity:0.78"></div>
+  <div class="vortex-core sm" style="bottom:15%;right:12%;opacity:0.74"></div>
+  <div class="swords-animation">
+    <div class="vortex-core lg" style="top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.8"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge fade-up"><span class="badge-dot"></span> Engineering Excellence</div>
+    <h1 class="fade-up fade-up-d1">
+      <span class="line1">Strength.</span><br>
+      <span class="line2">Precision.</span><br>
+      <span class="line3">Mastery.</span>
+    </h1>
+    <p class="hero-sub fade-up fade-up-d2">We build high-quality engineering solutions across AI, Machine Learning, Computer Vision, Software, IoT, and Hardware — turning bold ideas into real-world products.</p>
+    <div class="hero-ctas fade-up fade-up-d3">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat fade-up fade-up-d4">
+      <div class="stat-num">50<span>+</span></div>
+      <div class="stat-label">Projects Delivered</div>
+    </div>
+    <div class="stat fade-up fade-up-d5">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Engineering Domains</div>
+    </div>
+    <div class="stat fade-up fade-up-d6">
+      <div class="stat-num">100<span>%</span></div>
+      <div class="stat-label">Client Satisfaction</div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- THREE SWORDS PHILOSOPHY -->
+<section class="swords-section" id="about">
+  <div class="section-label fade-up">Our Philosophy</div>
+  <div class="slash-divider fade-up"></div>
+  <h2 class="section-title fade-up">Three core disciplines<br>in perfect harmony</h2>
+  <p class="section-sub fade-up fade-up-d1">We master three complementary disciplines — delivering engineering solutions that are powerful, precise, and masterfully executed across every domain.</p>
+  <div class="swords-grid">
+    <div class="sword-card fade-up">
+      <div class="sword-num">01 / FIRST SWORD</div>
+      <div class="sword-icon">⚡</div>
+      <h3 class="sword-title"><span>Strength</span></h3>
+      <p class="sword-desc">Raw engineering power. We build robust, scalable systems that handle real-world complexity — from high-throughput ML pipelines to hardware that performs under pressure.</p>
+    </div>
+    <div class="sword-card fade-up fade-up-d2">
+      <div class="sword-num">02 / SECOND SWORD</div>
+      <div class="sword-icon">🎯</div>
+      <h3 class="sword-title"><span>Precision</span></h3>
+      <p class="sword-desc">Every line of code, every circuit, every algorithm — executed with exactness. We don't ship until it's right. Quality is non-negotiable at Three Swords.</p>
+    </div>
+    <div class="sword-card fade-up fade-up-d3">
+      <div class="sword-num">03 / THIRD SWORD</div>
+      <div class="sword-icon">👑</div>
+      <h3 class="sword-title"><span>Mastery</span></h3>
+      <p class="sword-desc">Years of deep expertise across domains. We don't dabble — we master. From neural networks to embedded systems, we bring true craftsmanship to every engagement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="vortex-core md" style="position:absolute;top:5%;right:20%;opacity:0.72"></div>
+  <div class="vortex-core lg" style="position:absolute;bottom:8%;left:15%;opacity:0.76"></div>
+  <div class="vortex-core sm" style="position:absolute;top:30%;left:10%;opacity:0.7"></div>
+  <div class="vortex-core xs" style="position:absolute;bottom:25%;right:18%;opacity:0.73"></div>
+  <div class="services-header">
+    <div>
+      <div class="section-label fade-up">What We Build</div>
+      <div class="slash-divider fade-up"></div>
+      <h2 class="section-title fade-up">Engineering <br>across every domain</h2>
+    </div>
+    <a href="#contact" class="btn-secondary fade-up">All Services →</a>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-up" data-service="ai-ml">
+      <div class="service-card-header">
+        <div class="service-ico">🧠</div>
+        <h3 class="service-name">AI & Machine Learning</h3>
+        <span class="service-chevron">›</span>
+      </div>
+      <div class="service-expand-body">
+        <p class="service-desc">Custom ML models, LLM integrations, intelligent automation and data-driven systems that learn and adapt.</p>
+        <div class="service-features-mobile"></div>
+        <a href="#contact" class="service-mobile-cta">Get In Touch →</a>
+      </div>
+      <button class="service-arrow" data-service="ai-ml">Explore ——→</button>
+    </div>
+    <div class="service-card fade-up fade-up-d1" data-service="computer-vision">
+      <div class="service-card-header">
+        <div class="service-ico">👁</div>
+        <h3 class="service-name">Computer Vision</h3>
+        <span class="service-chevron">›</span>
+      </div>
+      <div class="service-expand-body">
+        <p class="service-desc">Real-time object detection, recognition, inspection and tracking systems powered by state-of-the-art vision models.</p>
+        <div class="service-features-mobile"></div>
+        <a href="#contact" class="service-mobile-cta">Get In Touch →</a>
+      </div>
+      <button class="service-arrow" data-service="computer-vision">Explore ——→</button>
+    </div>
+    <div class="service-card fade-up fade-up-d2" data-service="software-dev">
+      <div class="service-card-header">
+        <div class="service-ico">💻</div>
+        <h3 class="service-name">Software Development</h3>
+        <span class="service-chevron">›</span>
+      </div>
+      <div class="service-expand-body">
+        <p class="service-desc">Full-stack applications, APIs, cloud architectures and enterprise platforms — built to scale from day one.</p>
+        <div class="service-features-mobile"></div>
+        <a href="#contact" class="service-mobile-cta">Get In Touch →</a>
+      </div>
+      <button class="service-arrow" data-service="software-dev">Explore ——→</button>
+    </div>
+    <div class="service-card fade-up fade-up-d3" data-service="iot">
+      <div class="service-card-header">
+        <div class="service-ico">📡</div>
+        <h3 class="service-name">IoT Engineering</h3>
+        <span class="service-chevron">›</span>
+      </div>
+      <div class="service-expand-body">
+        <p class="service-desc">End-to-end connected device solutions — from sensor networks and firmware to cloud dashboards and analytics.</p>
+        <div class="service-features-mobile"></div>
+        <a href="#contact" class="service-mobile-cta">Get In Touch →</a>
+      </div>
+      <button class="service-arrow" data-service="iot">Explore ——→</button>
+    </div>
+    <div class="service-card fade-up fade-up-d4" data-service="hardware">
+      <div class="service-card-header">
+        <div class="service-ico">⚙️</div>
+        <h3 class="service-name">Hardware Engineering</h3>
+        <span class="service-chevron">›</span>
+      </div>
+      <div class="service-expand-body">
+        <p class="service-desc">PCB design, embedded systems, FPGA development and full hardware product lifecycle from prototype to production.</p>
+        <div class="service-features-mobile"></div>
+        <a href="#contact" class="service-mobile-cta">Get In Touch →</a>
+      </div>
+      <button class="service-arrow" data-service="hardware">Explore ——→</button>
+    </div>
+    <div class="service-card fade-up fade-up-d5" data-service="consulting">
+      <div class="service-card-header">
+        <div class="service-ico">🔬</div>
+        <h3 class="service-name">Tech Consulting</h3>
+        <span class="service-chevron">›</span>
+      </div>
+      <div class="service-expand-body">
+        <p class="service-desc">Architecture reviews, technology strategy, due diligence and hands-on guidance for teams building complex products.</p>
+        <div class="service-features-mobile"></div>
+        <a href="#contact" class="service-mobile-cta">Get In Touch →</a>
+      </div>
+      <button class="service-arrow" data-service="consulting">Explore ——→</button>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section" style="padding:0">
+  <div class="stats-inner">
+    <div class="stat-block fade-up">
+      <div class="stat-big">50<span>+</span></div>
+      <div class="stat-tag">Projects Delivered</div>
+    </div>
+    <div class="stat-block fade-up fade-up-d2">
+      <div class="stat-big">6</div>
+      <div class="stat-tag">Engineering Domains</div>
+    </div>
+    <div class="stat-block fade-up fade-up-d3">
+      <div class="stat-big">3<span>x</span></div>
+      <div class="stat-tag">Faster Time to Market</div>
+    </div>
+    <div class="stat-block fade-up fade-up-d4">
+      <div class="stat-big">100<span>%</span></div>
+      <div class="stat-tag">Client Satisfaction</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section">
+  <div class="vortex-core lg" style="position:absolute;top:8%;right:15%;opacity:0.74"></div>
+  <div class="vortex-core md" style="position:absolute;top:40%;left:12%;opacity:0.75"></div>
+  <div class="vortex-core sm" style="position:absolute;bottom:15%;right:20%;opacity:0.72"></div>
+  <div class="vortex-core xs" style="position:absolute;top:20%;right:8%;opacity:0.7"></div>
+  <div class="section-label fade-up">Why Three Swords</div>
+  <div class="slash-divider fade-up"></div>
+  <div class="why-grid">
+    <div class="why-list">
+      <div class="why-item fade-up">
+        <div class="why-check">✓</div>
+        <div>
+          <div class="why-item-title">End-to-end ownership</div>
+          <div class="why-item-desc">From initial concept through deployment and beyond — we take full responsibility for every project we take on.</div>
+        </div>
+      </div>
+      <div class="why-item fade-up fade-up-d1">
+        <div class="why-check">✓</div>
+        <div>
+          <div class="why-item-title">Cross-domain expertise</div>
+          <div class="why-item-desc">AI, hardware, software — under one roof. No handoff problems. No communication gaps between teams.</div>
+        </div>
+      </div>
+      <div class="why-item fade-up fade-up-d2">
+        <div class="why-check">✓</div>
+        <div>
+          <div class="why-item-title">Engineering-first culture</div>
+          <div class="why-item-desc">We're engineers, not account managers. Every decision is driven by technical merit and long-term quality.</div>
+        </div>
+      </div>
+      <div class="why-item fade-up fade-up-d3">
+        <div class="why-check">✓</div>
+        <div>
+          <div class="why-item-title">Built to scale</div>
+          <div class="why-item-desc">We architect for growth from day one. What we build today won't hold you back tomorrow.</div>
+        </div>
+      </div>
+    </div>
+    <div class="why-visual fade-up">
+      <div class="orbit"><div class="orbit-dot"></div></div>
+      <div class="orbit2"></div>
+      <div class="why-hex">
+        <div class="why-hex-inner">Three<br>Swords<br>Tech</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-section" id="contact">
+  <div class="vortex-core md" style="position:absolute;top:15%;left:20%;opacity:0.75"></div>
+  <div class="vortex-core sm" style="position:absolute;bottom:10%;right:15%;opacity:0.73"></div>
+  <div class="vortex-core lg" style="position:absolute;top:35%;right:10%;opacity:0.77"></div>
+  <div class="vortex-core xs" style="position:absolute;bottom:20%;left:18%;opacity:0.71"></div>
+  <div class="section-label fade-up">Start a Project</div>
+  <h2 class="fade-up fade-up-d1">Ready to build<br>something great?</h2>
+  <p class="fade-up fade-up-d2">Tell us what you're building. We'll tell you how to make it extraordinary.</p>
+  <div class="cta-btns fade-up fade-up-d3">
+    <a href="mailto:hello@threeswordstech.com" class="btn-primary">Get In Touch</a>
+    <a href="#services" class="btn-secondary">View Services</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="logo" href="#">
+        <div class="logo-icon">
+          <div class="logo-sword"></div>
+          <div class="logo-sword"></div>
+          <div class="logo-sword"></div>
+        </div>
+        <span class="logo-text">THREE SWORDS <span>TECH</span></span>
+      </a>
+      <p>High-quality engineering solutions across AI, ML, Computer Vision, Software, IoT and Hardware Engineering.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">AI & ML</a></li>
+        <li><a href="#">Computer Vision</a></li>
+        <li><a href="#">Software Dev</a></li>
+        <li><a href="#">IoT</a></li>
+        <li><a href="#">Hardware</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Team</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">GitHub</a></li>
+        <li><a href="#">Twitter/X</a></li>
+        <li><a href="#">hello@threeswordstech.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Three Swords Technologies. All rights reserved.</span>
+    <div class="footer-swords">
+      <div class="f-sword"></div>
+      <div class="f-sword"></div>
+      <div class="f-sword"></div>
+    </div>
+  </div>
+</footer>
+
+<!-- SERVICE MODAL -->
+<div id="service-modal">
+  <div class="modal-overlay">
+    <div class="modal-box">
+      <button class="modal-close">&times;</button>
+      <div class="modal-icon"></div>
+      <div class="modal-label"></div>
+      <h2 class="modal-title"></h2>
+      <p class="modal-desc"></p>
+      <div class="modal-features"></div>
+      <a href="#contact" class="btn-primary modal-cta">Get In Touch</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+}, {threshold: 0.1, rootMargin: '0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+window.addEventListener('load', () => {
+  document.querySelectorAll('.hero .fade-up').forEach(el => el.classList.add('visible'));
+});
+
+// Mobile Hamburger Menu
+const navBurger = document.querySelector('.nav-burger');
+const nav = document.querySelector('nav');
+const navLinks = document.querySelectorAll('nav ul a');
+
+if(navBurger) {
+  navBurger.addEventListener('click', () => {
+    nav.classList.toggle('nav-mobile-open');
+  });
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('nav-mobile-open');
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if(!nav.contains(e.target)) {
+      nav.classList.remove('nav-mobile-open');
+    }
+  });
+}
+
+// Randomize vortex-core positions
+const sizes = {lg: 150, md: 110, sm: 50, xs: 30};
+const getSize = el => {
+  for(let [k,v] of Object.entries(sizes)) if(el.classList.contains(k)) return v;
+  return 80;
+};
+const checkOverlap = (x1, y1, s1, circles) => {
+  for(let {x: x2, y: y2, s: s2} of circles) {
+    const d = Math.sqrt((x1-x2)**2 + (y1-y2)**2);
+    if(d < s1/2 + s2/2 + 40) return true;
+  }
+  return false;
+};
+const randomizeSection = section => {
+  const rect = section.getBoundingClientRect();
+  const w = rect.width, h = rect.height;
+  const cores = [...section.querySelectorAll('.vortex-core')];
+  const placed = [];
+  cores.forEach(core => {
+    const s = getSize(core);
+    let x, y, attempts = 0;
+    do {
+      x = Math.random() * (w - 100) + 50;
+      y = Math.random() * (h - 100) + 50;
+      attempts++;
+    } while(checkOverlap(x, y, s, placed) && attempts < 30);
+    placed.push({x, y, s});
+    core.style.left = x + 'px';
+    core.style.top = y + 'px';
+  });
+};
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('section');
+  sections.forEach(randomizeSection);
+});
+
+// Service Modal
+const serviceData = {
+  'ai-ml': {
+    icon: '🧠',
+    label: 'AI & Machine Learning',
+    title: 'AI & Machine Learning',
+    desc: 'End-to-end ML solutions from ideation to deployment. We design, train, and integrate custom models that solve real business problems — not just demos.',
+    features: ['Custom model training & fine-tuning', 'LLM integration & prompt engineering', 'MLOps & model monitoring', 'Data pipelines & feature engineering']
+  },
+  'computer-vision': {
+    icon: '👁',
+    label: 'Computer Vision',
+    title: 'Computer Vision',
+    desc: 'We build vision systems that see and understand the world in real time — from factory floors to autonomous platforms, with accuracy that meets production standards.',
+    features: ['Real-time object detection & tracking', 'Image classification & segmentation', 'Defect inspection systems', 'Edge-deployed vision models']
+  },
+  'software-dev': {
+    icon: '💻',
+    label: 'Software Development',
+    title: 'Software Development',
+    desc: 'Robust, scalable software built by engineers who care about architecture. From APIs to full-stack platforms, we build systems that last.',
+    features: ['Full-stack web & mobile applications', 'REST & GraphQL API design', 'Cloud-native architecture (AWS/GCP/Azure)', 'Performance optimization & code review']
+  },
+  'iot': {
+    icon: '📡',
+    label: 'IoT Engineering',
+    title: 'IoT Engineering',
+    desc: 'We connect hardware to the cloud — building complete IoT ecosystems from sensor firmware to real-time dashboards with reliability at every layer.',
+    features: ['Embedded firmware & sensor integration', 'MQTT/CoAP protocol implementation', 'Cloud IoT platforms & dashboards', 'Remote OTA update systems']
+  },
+  'hardware': {
+    icon: '⚙️',
+    label: 'Hardware Engineering',
+    title: 'Hardware Engineering',
+    desc: 'From schematic to prototype to production-ready hardware. We handle the full lifecycle with a focus on manufacturability, reliability, and cost efficiency.',
+    features: ['PCB schematic & layout design', 'FPGA development & HDL coding', 'Embedded Linux & RTOS systems', 'DFM review & prototype testing']
+  },
+  'consulting': {
+    icon: '🔬',
+    label: 'Tech Consulting',
+    title: 'Tech Consulting',
+    desc: 'Experienced engineers who\'ve shipped real products advising on your toughest technical decisions — architecture, team, tooling, and strategy.',
+    features: ['Architecture design & review', 'Technology stack selection', 'Technical due diligence', 'Engineering team mentoring']
+  }
+};
+
+const modal = document.getElementById('service-modal');
+const modalOverlay = modal.querySelector('.modal-overlay');
+const modalClose = modal.querySelector('.modal-close');
+
+function openModal(serviceKey) {
+  const data = serviceData[serviceKey];
+  modal.querySelector('.modal-icon').textContent = data.icon;
+  modal.querySelector('.modal-label').textContent = data.label;
+  modal.querySelector('.modal-title').textContent = data.title;
+  modal.querySelector('.modal-desc').textContent = data.desc;
+
+  const featuresHtml = data.features.map(f => `
+    <div class="modal-feature">
+      <div class="modal-feature-check">✓</div>
+      <div class="modal-feature-text">${f}</div>
+    </div>
+  `).join('');
+  modal.querySelector('.modal-features').innerHTML = featuresHtml;
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.service-arrow').forEach(btn => {
+  btn.addEventListener('click', () => openModal(btn.dataset.service));
+});
+
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', e => {
+  if(e.target === modalOverlay) closeModal();
+});
+
+modal.querySelector('.modal-cta').addEventListener('click', closeModal);
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+});
+
+// Mobile Service Accordion
+const mq = window.matchMedia('(max-width:900px)');
+document.querySelectorAll('.service-card').forEach(card => {
+  card.addEventListener('click', () => {
+    if(!mq.matches) return;
+    const key = card.dataset.service;
+    const isExpanded = card.classList.contains('expanded');
+    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('expanded'));
+    if(!isExpanded) {
+      card.classList.add('expanded');
+      const featDiv = card.querySelector('.service-features-mobile');
+      if(!featDiv.children.length) {
+        const data = serviceData[key];
+        featDiv.innerHTML = (data.features || []).map(f =>
+          `<div class="mobile-feature"><span class="mobile-feature-check">✓</span><span class="mobile-feature-text">${f}</span></div>`
+        ).join('');
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
