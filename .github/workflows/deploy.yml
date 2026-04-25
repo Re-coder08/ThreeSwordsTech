@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - develop
   pull_request:
     branches:
       - develop
@@ -20,15 +21,28 @@ jobs:
           fi
           html5validator --root . index.html 2>&1 | grep -v "error: CSS:" || true
 
-  deploy:
+  deploy-main:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: validate
     steps:
       - uses: actions/checkout@v4
-      - name: Deploy to GitHub Pages
+      - name: Deploy to threeswordstech.com
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
-          cname: threeswords.tech
+          cname: threeswordstech.com
+
+  deploy-develop:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    needs: validate
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy develop to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          publish_branch: gh-pages
