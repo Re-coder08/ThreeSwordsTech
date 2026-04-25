@@ -30,9 +30,12 @@ jobs:
     needs: validate
     steps:
       - uses: actions/checkout@v4
-      - name: Deploy develop to GitHub Pages
+      - name: Update CNAME for subdomain
+        run: echo "dev.threeswordstech.com" > CNAME
+      - name: Deploy develop to dev.threeswordstech.com
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
-          publish_branch: gh-pages
+          publish_branch: gh-pages-dev
+          cname: dev.threeswordstech.com
